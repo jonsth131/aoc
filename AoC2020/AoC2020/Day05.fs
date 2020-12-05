@@ -4,12 +4,11 @@ let input = Utils.readInput "Day05.txt"
 
 let getValue code (values: int []) =
     match code with
-    | '-' -> values.[..(values.Length / 2) - 1]
-    | '+' -> values.[values.Length / 2..]
+    | 'F'
+    | 'L' -> values.[..(values.Length / 2) - 1]
+    | 'B'
+    | 'R' -> values.[values.Length / 2..]
     | _ -> values
-
-let convertCode (code: string) =
-    code.Replace('F', '-').Replace('B', '+').Replace('L', '-').Replace('R', '+')
 
 let rec calculateValue (code: string) (values: int []) =
     if values.Length = 1 then
@@ -32,14 +31,12 @@ let rec findGap (arr: int []) =
 
 let part1 =
     input
-    |> Array.map convertCode
     |> Array.map decode
     |> Array.map calculateSeatId
     |> Array.max
 
 let part2 =
     input
-    |> Array.map convertCode
     |> Array.map decode
     |> Array.map calculateSeatId
     |> Array.sort
