@@ -14,8 +14,7 @@ let rec calculateValue (code: string) (values: int []) =
     if values.Length = 1 then
         values.[0]
     else
-        let newValues = getValue code.[0] values
-        calculateValue code.[1..] newValues
+        calculateValue code.[1..] (getValue code.[0] values)
 
 let decode (code: string) =
     (calculateValue code.[0..6] [| 0 .. 127 |]), (calculateValue code.[7..9] [| 0 .. 7 |])
