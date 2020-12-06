@@ -1,5 +1,6 @@
 module AoC2020.Utils
 
+open System
 open System.IO
 
 let readInput fileName = File.ReadAllLines(Path.Combine("Inputs", fileName))
@@ -12,3 +13,9 @@ let countOccurances input toMatch =
     input
     |> Seq.filter (fun x' -> x' = toMatch)
     |> Seq.length
+
+let readBlock (input: string) =
+    input.Trim().Split(Environment.NewLine + Environment.NewLine)
+    
+let splitToArray (input: string) =
+    input.Trim().Split(Environment.NewLine)

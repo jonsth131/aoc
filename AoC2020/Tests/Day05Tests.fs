@@ -46,3 +46,11 @@ let ``Should find missing element with large array`` () =
     let inputArray = [|100; 101; 103; 104; 105; 106; 107; 108; 109; 110; 111 |]
     let expected = 102
     Assert.Equal(expected, Day05.findGap inputArray)
+    
+[<Fact>]
+let ``Should get correct answer for part1`` () =
+    Assert.Equal(883, Day05.part1)
+    
+[<Fact>]
+let ``Should get correct answer for part2`` () =
+    Assert.Equal(532, Day05.part2)

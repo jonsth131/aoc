@@ -15,8 +15,9 @@ type Passport =
 let input = Utils.readInputAsString "Day04.txt"
 
 let parseLines (input: string) =
-    input.Split("\r\n\r\n")
-    |> Array.map (fun x -> x.Replace("\r\n", " "))
+    input
+    |> Utils.readBlock
+    |> Array.map (fun x -> x.Replace(Environment.NewLine, " "))
 
 let parseField (input: string) =
     let field = input.Split(":")

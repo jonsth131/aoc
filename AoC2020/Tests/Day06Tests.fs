@@ -4,7 +4,7 @@ open AoC2020
 open Xunit
 
 [<Fact>]
-let ``Create set`` () =
+let ``Should create set`` () =
     Assert.Equal(2, Day06.createSet "ab\r\nac" |> Seq.length)
 
 [<Theory>]
@@ -14,7 +14,7 @@ let ``Create set`` () =
 [<InlineData("a\r\na\r\na\r\na", 1)>]
 [<InlineData("b", 1)>]
 [<InlineData("tg\r\ngt", 2)>]
-let ``Count answers`` (input, expected) =
+let ``Should count answers`` (input, expected) =
     Assert.Equal(expected, Day06.countAnswers input)
 
 [<Fact>]
@@ -27,3 +27,11 @@ let ``Should sum answer count`` () =
            "b" |]
 
     Assert.Equal(6, Day06.sumAnswers answers)
+    
+[<Fact>]
+let ``Should get correct answer for part1`` () =
+    Assert.Equal(6532, Day06.part1)
+    
+[<Fact>]
+let ``Should get correct answer for part2`` () =
+    Assert.Equal(3427, Day06.part2)

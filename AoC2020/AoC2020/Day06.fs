@@ -3,12 +3,10 @@ module AoC2020.Day06
 open System
 
 let input = Utils.readInputAsString "Day06.txt"
-
-let parseLines (input: string) =
-    input.Trim().Split("\r\n\r\n")
     
 let createSet (input: string) =
-    input.Trim().Split("\r\n")
+    input
+    |> Utils.splitToArray
     |> Seq.map Set.ofSeq
 
 let countAnswers (input: string) =
@@ -24,12 +22,12 @@ let sumAnswers (input: string[]) =
 
 let part1 =
     input
-    |> parseLines
+    |> Utils.readBlock
     |> Seq.map (fun x -> x.Replace(Environment.NewLine, ""))
     |> Seq.map (fun x -> Seq.distinct x |> Seq.length)
     |> Seq.sum
 
 let part2 =
     input
-    |> parseLines
+    |> Utils.readBlock
     |> sumAnswers

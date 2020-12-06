@@ -116,3 +116,11 @@ let ``Should validate height`` (input, expected) =
 let ``Should validate passport with extended validation`` (input, expected) =
     let passport = Day04.parseLine input
     Assert.Equal(expected, Day04.extendedValidation passport)
+
+[<Fact>]
+let ``Should get correct answer for part1`` () =
+    Assert.Equal(200, Day04.part1)
+    
+[<Fact>]
+let ``Should get correct answer for part2`` () =
+    Assert.Equal(116, Day04.part2)

@@ -46,3 +46,11 @@ let ``Should calculate all slopes`` () =
         * (Day03.checkHits 7 1 input)
         * (Day03.checkHits 1 2 input)
     Assert.Equal(336, actual)
+
+[<Fact>]
+let ``Should get correct answer for part1`` () =
+    Assert.Equal(230, Day03.part1)
+    
+[<Fact>]
+let ``Should get correct answer for part2`` () =
+    Assert.Equal(9533698720UL, Day03.part2)

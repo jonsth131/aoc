@@ -21,3 +21,11 @@ let ``Should validate first password policy`` (input, expected) =
 [<InlineData("2-9 c: ccccccccc", false)>]
 let ``Should validate second password policy`` (input, expected) =
     Assert.Equal(expected, parsePasswordPolicy input |> validPasswordForPolicy2)
+
+[<Fact>]
+let ``Should get correct answer for part1`` () =
+    Assert.Equal(548, part1)
+    
+[<Fact>]
+let ``Should get correct answer for part2`` () =
+    Assert.Equal(502, part2)
