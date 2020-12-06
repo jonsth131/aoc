@@ -12,11 +12,10 @@ type Passport =
       EyeColor: string
       PassportId: string }
 
-let input = Utils.readInputAsString "Day04.txt"
+let input = Utils.readInputAsStringBlocks "Day04.txt"
 
-let parseLines (input: string) =
+let parseLines (input: string[]) =
     input
-    |> Utils.readBlock
     |> Array.map (fun x -> x.Replace(Environment.NewLine, " "))
 
 let parseField (input: string) =

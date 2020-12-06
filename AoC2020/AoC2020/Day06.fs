@@ -2,7 +2,7 @@ module AoC2020.Day06
 
 open System
 
-let input = Utils.readInputAsString "Day06.txt"
+let input = Utils.readInputAsStringBlocks "Day06.txt"
     
 let createSet (input: string) =
     input
@@ -22,12 +22,10 @@ let sumAnswers (input: string[]) =
 
 let part1 =
     input
-    |> Utils.readBlock
     |> Seq.map (fun x -> x.Replace(Environment.NewLine, ""))
     |> Seq.map (fun x -> Seq.distinct x |> Seq.length)
     |> Seq.sum
 
 let part2 =
     input
-    |> Utils.readBlock
     |> sumAnswers
