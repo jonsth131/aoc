@@ -81,7 +81,7 @@ let runWithPatch (vm: Vm) (instructions: Instruction list) =
                   Accumulator = 0
                   RanInstructions = [] }
                 x)
-        |> List.filter (fun (success, vm) -> success = true)
+        |> List.filter (fun (success, _) -> success = true)
         |> List.map (fun (_, vm) -> vm)
         |> List.head
         |> fun x -> x.Accumulator
