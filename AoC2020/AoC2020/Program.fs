@@ -36,4 +36,8 @@ let main argv =
     printfn "=======Day 8======="
     printfn "Part 1: %i" Day08.part1
     printfn "Part 2: %i" Day08.part2
+
+    printfn "=======Day 9======="
+    printfn "Part 1: %i" Day09.part1
+    printfn "Part 2: %i" Day09.part2
     0 // return an integer exit code

@@ -10,13 +10,15 @@ let countOccurances input toMatch =
 
 let readBlock (input: string) =
     input.Trim().Split(Environment.NewLine + Environment.NewLine)
-    
+
 let splitToArray (input: string) =
     input.Trim().Split(Environment.NewLine)
-    
+
 let readInput fileName = File.ReadAllLines(Path.Combine("Inputs", fileName))
 
 let readInputAsInts fileName = readInput fileName |> Array.map int
+
+let readInputAsUint64 fileName = readInput fileName |> Array.map uint64
 
 let readInputAsString fileName = File.ReadAllText(Path.Combine("Inputs", fileName))
 

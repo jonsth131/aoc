@@ -30,6 +30,9 @@
         <Content Include="Inputs\Day08.txt">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Include="Inputs\Day09.txt">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Compile Include="Utils.fs" />
         <Compile Include="Day01.fs" />
         <Compile Include="Day02.fs" />
@@ -39,6 +42,7 @@
         <Compile Include="Day06.fs" />
         <Compile Include="Day07.fs" />
         <Compile Include="Day08.fs" />
+        <Compile Include="Day09.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
