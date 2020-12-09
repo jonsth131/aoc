@@ -26,19 +26,18 @@ let findInvalidElement preambleLength (input: uint64 list) =
         elif isValidValue value (input.[i - preambleLength - 1..i - 1]) then result
         else value) 0UL
 
-let rec checkValue value first last (input: uint64 list) =
-    let totalSum = input.[first..last] |> List.sum
-    if totalSum = value then input.[first..last]
-    elif totalSum > value then checkValue value (first + 1) (first + 2) input
-    elif totalSum < value then checkValue value first (last + 1) input
+let rec checkValue value index (input: uint64 list) =
+    let totalSum = input.[..index] |> List.sum
+    if totalSum = value then input.[..index]
+    elif totalSum > value then checkValue value 0 input.Tail
+    elif totalSum < value then checkValue value (index + 1) input
     else []
 
-let findSumElements input value =
-    input |> checkValue value 0 1 |> List.sort
+let findSumElements input value = input |> checkValue value 0 |> List.sort
+
+let addFirstAndLast (input: uint64 list) = input.Head + input.[input.Length - 1]
 
 let part1 = input |> findInvalidElement 25
 
 let part2 =
-    let foundElements = part1 |> findSumElements input
-    foundElements.Head
-    + foundElements.[foundElements.Length - 1]
+    part1 |> findSumElements input |> addFirstAndLast
