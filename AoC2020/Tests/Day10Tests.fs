@@ -1,5 +1,6 @@
 module Tests.Day10Tests
 
+open System.Collections.Generic
 open AoC2020
 open Xunit
 
@@ -56,14 +57,26 @@ let ``Should count differences`` (diff, expected) =
     Assert.Equal(expected, Day10.countDifferences diff input)
 
 [<Fact>]
-let ``Should get correct multiple part1`` () =
-    let actual = Day10.countMatches 4 [ 5; 6; 7 ]
-    Assert.Equal(3, actual)
+let ``Can reach`` () =
+    let actual = Day10.canReach 1 3
+    Assert.Equal(true, actual)
 
 [<Fact>]
-let ``Should get correct multiple part2`` () =
-    let actual = Day10.countMatches 5 [ 6; 7; 10 ]
-    Assert.Equal(2, actual)
+let ``Should get permutations for small input`` () =
+    let dict = Dictionary<int, uint64>()
+    dict.Add(0, 1UL)
+    let actual = smallInput |> Day10.prepareInput 22 |> Seq.toList |> Day10.countPermutations dict 0
+    Assert.Equal(8UL, actual)
+    
+[<Fact>]
+let ``Should get permutations for input`` () =
+    let dict = Dictionary<int, uint64>()
+    dict.Add(0, 1UL)
+    let actual = input |> Day10.prepareInput 52 |> Seq.toList |> Day10.countPermutations dict 0
+    Assert.Equal(19208UL, actual)
 
 [<Fact>]
 let ``Should get correct answer for part1`` () = Assert.Equal(2232, Day10.part1)
+
+[<Fact>]
+let ``Should get correct answer for part2`` () = Assert.Equal(173625106649344UL, Day10.part2)
