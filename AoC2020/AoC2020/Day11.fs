@@ -5,101 +5,66 @@ type Cell =
     | Free
     | Floor
 
-type Seats =
-    { Rows: int
-      Columns: int
-      Cells: Cell list }
-
 let input = Utils.readInput "Day11.txt"
 
-let createRow (row: string) =
-    row
-    |> Seq.fold (fun (result: Cell list) character ->
-        match character with
-        | '.' -> result @ [ Floor ]
-        | 'L' -> result @ [ Free ]
-        | '#' -> result @ [ Occupied ]
-        | _ -> invalidArg "Character" "Invalid") []
+let parseChar char =
+    match char with
+    | '.' -> Floor
+    | 'L' -> Free
+    | '#' -> Occupied
+    | _ -> invalidArg "char" "Invalid character"
 
-let createModel (input: string array) =
-    let columns = input.[0].Length
-    let rows = input.Length
+let createModel input =
+    [ for (y, row) in input |> Seq.indexed do
+        for (x, col) in row |> Seq.indexed -> (x, y), parseChar col ]
+    |> Map.ofSeq
 
-    input
-    |> Array.fold (fun result row ->
-        { result with
-              Cells = result.Cells @ createRow row })
-           { Rows = rows
-             Columns = columns
-             Cells = [] }
+let stuff = createModel input
 
-let toXy index seats =
-    (index % (seats.Columns), index / (seats.Columns))
+let getNeighbours (x, y) model =
+    let neighbourPoints = [
+        (x - 1, y - 1)
+        (x, y - 1)
+        (x + 1, y - 1)
+        (x - 1, y)
+        (x + 1, y)
+        (x - 1, y + 1)
+        (x, y + 1)
+        (x + 1, y + 1)
+    ]
+    
+    neighbourPoints |> Seq.choose (fun x -> model |> Map.tryFind x)
 
-let getCellAt x y seats =
-    if x < 0
-       || y < 0
-       || x > seats.Columns - 1
-       || y > seats.Rows - 1 then
-        None
-    else
-        let index = y * seats.Columns + x
-        if index < 0 then None else Some seats.Cells.[index]
+let getUpdatedCell model (xy, cell) =
+    let occupied = getNeighbours xy model
+                   |> Seq.filter (fun x -> x = Occupied)
+                   |> Seq.length
 
-let getNeighbours index seats =
-    let (x, y) = toXy index seats
-    [ (getCellAt (x - 1) (y - 1) seats)
-      (getCellAt x (y - 1) seats)
-      (getCellAt (x + 1) (y - 1) seats)
-      (getCellAt (x - 1) (y) seats)
-      (getCellAt (x + 1) (y) seats)
-      (getCellAt (x - 1) (y + 1) seats)
-      (getCellAt x (y + 1) seats)
-      (getCellAt (x + 1) (y + 1) seats) ]
+    match cell, occupied with
+    | Free, 0 -> (xy, Occupied)
+    | Occupied, o when o >= 4 -> (xy, Free)
+    | cell, _ -> (xy, cell)
+    
+let update model =
+    model
+    |> Map.toSeq
+    |> Seq.map (getUpdatedCell model)
+    |> Map.ofSeq
 
-let getUpdatedCell index seats =
-    let currentCell = seats.Cells.[index]
-
-    let rule1 =
-        currentCell = Free
-        && (getNeighbours index seats
-           |> Seq.filter (fun x -> x.IsSome && x.Value = Occupied)
-           |> Seq.length = 0)
-
-    let rule2 =
-        currentCell = Occupied
-        && (getNeighbours index seats
-           |> Seq.filter (fun x -> x.IsSome && x.Value = Occupied)
-           |> Seq.length
-           >= 4)
-
-    if rule2 then Free
-    elif rule1 then Occupied
-    else currentCell
-
-let updateSeats seats =
-    seats.Cells
-    |> List.indexed
-    |> List.fold (fun result (index, _) ->
-        { result with
-              Cells = result.Cells @ [ getUpdatedCell index seats ] })
-           { Rows = seats.Rows
-             Columns = seats.Columns
-             Cells = [] }
-
-let countSeats cell input =
-    input.Cells
-    |> Seq.filter (fun x -> x = cell)
+let rec updateUntilNoChanges model =
+    let newModel = update model
+    if newModel = model then model else updateUntilNoChanges newModel
+    
+let countOccupied model =
+    model
+    |> Map.toSeq
+    |> Seq.filter (fun (_, cell) -> cell = Occupied)
     |> Seq.length
-
-let rec updateUntilNoChanges seats =
-    let newSeats = updateSeats seats
-    if Utils.compare seats.Cells newSeats.Cells then seats else updateUntilNoChanges newSeats
-
+    
 let part1 =
     input
     |> createModel
     |> updateUntilNoChanges
-    |> countSeats Occupied
+    |> countOccupied
 
 let part2 = 2
