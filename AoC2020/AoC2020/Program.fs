@@ -44,4 +44,8 @@ let main argv =
     printfn "=======Day 10======="
     printfn "Part 1: %i" Day10.part1
     printfn "Part 2: %i" Day10.part2
+
+    printfn "=======Day 11======="
+    printfn "Part 1: %i" Day11.part1
+    printfn "Part 2: %i" Day11.part2
     0 // return an integer exit code
