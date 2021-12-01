@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from fileutils import read_as_ints
 
 
 def part1(input):
@@ -20,7 +21,7 @@ def measure(input, size):
         if prev != None and value > prev:
             increases += 1
 
-        prev = value 
+        prev = value
 
     return increases
 
@@ -28,23 +29,6 @@ def measure(input, size):
 def window(lst, size):
     for i in range(len(lst) - size + 1):
         yield lst[i:i+size]
-
-def test_part1():
-    input = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
-
-    assert part1(input) == 7
-
-
-def test_part2():
-    input = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
-
-    assert part2(input) == 5
-
-
-def read_as_ints(filename):
-    with open(filename, 'r') as input:
-        data = input.readlines()
-        return [int(x) for x in data]
 
 
 if __name__ == "__main__":
