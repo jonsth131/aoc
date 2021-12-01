@@ -11,16 +11,14 @@ def part2(input):
 
 
 def measure(input, size):
-    win = window(input, size)
+    windows = window(input, size)
     increases = 0
     prev = None
 
-    for item in win:
+    for item in windows:
         value = sum(item)
-
         if prev != None and value > prev:
             increases += 1
-
         prev = value
 
     return increases
