@@ -1,11 +1,11 @@
-from day1 import measure
+from day1 import part1, part2
 
 
 def test_part1():
     data = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
-    assert measure(data, 1) == 7
+    assert part1(data) == 7
 
 
 def test_part2():
     data = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
-    assert measure(data, 3) == 5
+    assert part2(data) == 5
