@@ -4,3 +4,4 @@ obj/
 *.user
 .pytest_cache/
 __pycache__/
+inputs/
