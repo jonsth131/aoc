@@ -5,4 +5,4 @@ def read_as_ints(filename):
 
 def read_lines(filename):
     with open(filename, 'r') as data:
-        return data.readlines()
+        return data.read().splitlines()
