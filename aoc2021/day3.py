@@ -34,7 +34,7 @@ def get_max(bit_length, data):
     for i in range(bit_length - 1, -1, -1):
         mask = pow(2, i)
         ones = len([i for i in data if i & mask == mask])
-        zeros = len([i for i in data if i & mask != mask])
+        zeros = len(data) - ones
         if ones == zeros:
             max_value += mask
         elif ones > zeros:
