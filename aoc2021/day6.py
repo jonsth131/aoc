@@ -25,7 +25,7 @@ def tick_state(state):
     new = 0
     for key in state.keys():
         value = state.get(key)
-        if key - 1 == -1:
+        if key == 0:
             new = value
         else:
             new_state.update({key - 1: value})
