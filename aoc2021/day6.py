@@ -36,9 +36,8 @@ def tick_state(state):
 
 def parse_initial_state(data):
     state = {}
-    values = [int(x) for x in data.split(',')]
-    for i in range(len(values)):
-        update_state(state, values[i], 1)
+    for value in [int(x) for x in data.split(',')]:
+        update_state(state, value, 1)
     return state
 
 
