@@ -4,25 +4,29 @@ import fileutils
 
 def part1(lst):
     positions = parse_positions(lst)
-    return get_min_fuel(positions, True)
+
+    def calc(x, i):
+        return abs(x - i)
+
+    return get_min_fuel(positions, calc)
 
 
 def part2(lst):
     positions = parse_positions(lst)
-    return get_min_fuel(positions, False)
+
+    def calc(x, i):
+        n = abs(x - i)
+        return n * (n + 1) / 2
+
+    return get_min_fuel(positions, calc)
 
 
-def get_min_fuel(positions, is_part1):
+def get_min_fuel(positions, calculation):
     fuel = [None] * max(positions.keys())
     for i in range(len(fuel)):
         value = 0
-        if is_part1 is True:
-            for x in positions.keys():
-                value += abs(x - i) * positions.get(x)
-        else:
-            for x in positions.keys():
-                n = abs(x - i)
-                value += (n * (n + 1) / 2) * positions.get(x)
+        for x in positions.keys():
+            value += calculation(x, i) * positions.get(x)
         fuel[i] = int(value)
     return min(fuel)
 
