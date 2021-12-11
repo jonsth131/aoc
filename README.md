@@ -1,2 +1,2 @@
 # Advent of code
- Solutions to Advent of code
+ Solutions for Advent of code
