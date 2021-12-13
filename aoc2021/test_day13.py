@@ -27,6 +27,3 @@ fold along x=5""".splitlines()
 def test_part1():
     assert part1(test_input) == 17
 
-
-def test_part2():
-    assert part2(test_input) == 36
