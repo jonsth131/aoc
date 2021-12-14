@@ -1,4 +1,4 @@
-from day13 import part1, part2
+from day13 import part1
 
 
 test_input = """6,10
@@ -26,4 +26,3 @@ fold along x=5""".splitlines()
 
 def test_part1():
     assert part1(test_input) == 17
-
