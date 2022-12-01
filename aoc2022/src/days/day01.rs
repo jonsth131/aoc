@@ -1,35 +1,33 @@
 use took::Timer;
 
-fn part1(data: &mut Vec<u32>) -> u32 {
-    data.pop().unwrap()
+fn part1(data: &Vec<usize>) -> usize {
+    data[0]
 }
 
-fn part2(data: &mut Vec<u32>) -> u32 {
-    data.pop().unwrap() + data.pop().unwrap() + data.pop().unwrap()
+fn part2(data: &Vec<usize>) -> usize {
+    data[0..3].iter().sum()
 }
 
-fn parse_data(input: Vec<String>) -> Vec<u32> {
-    let mut result: Vec<u32> = Vec::new();
-    let mut acc = 0;
-    for line in input {
-        if line.is_empty() {
-            result.push(acc);
-            acc = 0;
-        } else {
-            acc += line.parse::<u32>().unwrap();
-        }
-    }
-    result.push(acc);
+fn parse_data(input: &str) -> Vec<usize> {
+    let mut parsed = input
+        .split("\n\n")
+        .map(|block| {
+            block
+                .lines()
+                .flat_map(|s| s.parse::<usize>())
+                .sum::<usize>()
+        })
+        .collect::<Vec<usize>>();
 
-    result.sort();
-    result
+    parsed.sort_by(|a, b| b.cmp(a));
+    parsed
 }
 
-pub fn run(input: Vec<String>) {
-    let data = parse_data(input);
+pub fn run(input: &str) {
+    let data = parse_data(&input);
 
     let p1_timer = Timer::new();
-    let p1 = part1(&mut data.clone());
+    let p1 = part1(&data);
     println!(
         "Part 1 answer: {}, time: {:?}",
         p1,
@@ -37,7 +35,7 @@ pub fn run(input: Vec<String>) {
     );
 
     let p2_timer = Timer::new();
-    let p2 = part2(&mut data.clone());
+    let p2 = part2(&data);
     println!(
         "Part 2 answer: {}, time: {:?}",
         p2,
@@ -51,25 +49,17 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let input: Vec<String> =
-            "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000"
-                .split("\n")
-                .map(|v| v.to_owned())
-                .collect();
+        let input: &str = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
 
         let data = parse_data(input);
-        assert_eq!(part1(&mut data.clone()), 24000);
+        assert_eq!(part1(&data), 24000);
     }
 
     #[test]
     fn test_part_two() {
-        let input: Vec<String> =
-            "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000"
-                .split("\n")
-                .map(|v| v.to_owned())
-                .collect();
+        let input: &str = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
 
         let data = parse_data(input);
-        assert_eq!(part2(&mut data.clone()), 45000);
+        assert_eq!(part2(&data), 45000);
     }
 }
