@@ -24,6 +24,7 @@ fn parse_data(input: &str) -> Vec<usize> {
 }
 
 pub fn run(input: &str) {
+    println!("==== DAY 1 ====");
     let data = parse_data(&input);
 
     let p1_timer = Timer::new();
@@ -49,7 +50,7 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let input: &str = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
+        let input: &str = include_str!("../../inputs/test_day1.txt");
 
         let data = parse_data(input);
         assert_eq!(part1(&data), 24000);
@@ -57,7 +58,7 @@ mod tests {
 
     #[test]
     fn test_part_two() {
-        let input: &str = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
+        let input: &str = include_str!("../../inputs/test_day1.txt");
 
         let data = parse_data(input);
         assert_eq!(part2(&data), 45000);
