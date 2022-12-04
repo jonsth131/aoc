@@ -2,26 +2,30 @@ use took::Timer;
 
 struct Range(u32, u32);
 
+impl Range {
+    pub fn overlap(&self, other: &Range) -> bool {
+        return self.1 >= other.0 && self.0 <= other.1;
+    }
+
+    pub fn full_overlap(&self, other: &Range) -> bool {
+        return self.0 <= other.0 && self.1 >= other.1;
+    }
+}
+
 fn part1(data: &Vec<(Range, Range)>) -> u32 {
     return data
         .iter()
-        .map(|(range1, range2)| full_overlap(range1, range2) as u32)
+        .map(|(range1, range2)| {
+            (range1.full_overlap(&range2) || range2.full_overlap(&range1)) as u32
+        })
         .sum::<u32>();
 }
 
 fn part2(data: &Vec<(Range, Range)>) -> u32 {
     return data
         .iter()
-        .map(|(range1, range2)| overlap(range1, range2) as u32)
+        .map(|(range1, range2)| range1.overlap(&range2) as u32)
         .sum::<u32>();
-}
-
-fn overlap(r1: &Range, r2: &Range) -> bool {
-    return r1.1 >= r2.0 && r1.0 <= r2.1;
-}
-
-fn full_overlap(r1: &Range, r2: &Range) -> bool {
-    return (r1.0 <= r2.0 && r1.1 >= r2.1) || (r2.0 <= r1.0 && r2.1 >= r1.1);
 }
 
 fn parse_data(input: &str) -> Vec<(Range, Range)> {
