@@ -8,5 +8,6 @@ fn main() {
     days::day02::run(include_str!("../inputs/day2.txt"));
     days::day03::run(include_str!("../inputs/day3.txt"));
     days::day04::run(include_str!("../inputs/day4.txt"));
+    days::day05::run(include_str!("../inputs/day5.txt"));
     println!("Total: {:?}", full_timer.took().into_std());
 }
