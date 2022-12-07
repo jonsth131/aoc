@@ -23,7 +23,7 @@ impl State {
         self.state[stack].push(val);
     }
 
-    pub fn process_moves_p1(&mut self, moves: Vec<Move>) {
+    pub fn process_moves_p1(&mut self, moves: &Vec<Move>) {
         for mv in moves {
             for _ in 0..mv.amount {
                 let val = self.state[(mv.from - 1) as usize].pop().unwrap();
@@ -32,7 +32,7 @@ impl State {
         }
     }
 
-    pub fn process_moves_p2(&mut self, moves: Vec<Move>) {
+    pub fn process_moves_p2(&mut self, moves: &Vec<Move>) {
         for mv in moves {
             let mut tmp = vec![];
             for _ in 0..mv.amount {
@@ -55,12 +55,12 @@ impl State {
     }
 }
 
-fn part1(mut state: State, moves: Vec<Move>) -> String {
+fn part1(mut state: State, moves: &Vec<Move>) -> String {
     state.process_moves_p1(moves);
     state.get_top()
 }
 
-fn part2(mut state: State, moves: Vec<Move>) -> String {
+fn part2(mut state: State, moves: &Vec<Move>) -> String {
     state.process_moves_p2(moves);
     state.get_top()
 }
@@ -72,12 +72,12 @@ fn parse_data(input: &str) -> (State, Vec<Move>) {
     let moves = move_lines
         .iter()
         .map(|row| {
-            let split = row.split(" ").collect::<Vec<&str>>();
-            return Move {
+            let split = row.split(' ').collect::<Vec<&str>>();
+            Move {
                 amount: split[1].parse::<u8>().unwrap(),
                 from: split[3].parse::<u8>().unwrap(),
                 to: split[5].parse::<u8>().unwrap(),
-            };
+            }
         })
         .collect::<Vec<Move>>();
 
@@ -101,15 +101,15 @@ fn parse_data(input: &str) -> (State, Vec<Move>) {
         }
     }
 
-    (state, moves.clone())
+    (state, moves)
 }
 
 pub fn run(input: &str) {
     println!("==== DAY 5 ====");
-    let (state, moves) = parse_data(&input);
+    let (state, moves) = parse_data(input);
 
     let p1_timer = Timer::new();
-    let p1 = part1(state.clone(), moves.clone());
+    let p1 = part1(state.clone(), &moves);
     println!(
         "Part 1 answer: {}, time: {:?}",
         p1,
@@ -117,7 +117,7 @@ pub fn run(input: &str) {
     );
 
     let p2_timer = Timer::new();
-    let p2 = part2(state.clone(), moves.clone());
+    let p2 = part2(state, &moves);
     println!(
         "Part 2 answer: {}, time: {:?}",
         p2,
@@ -134,7 +134,7 @@ mod tests {
         let input: &str = include_str!("../../inputs/test_day5.txt");
 
         let (state, moves) = parse_data(input);
-        assert_eq!(part1(state, moves), "CMZ");
+        assert_eq!(part1(state, &moves), "CMZ");
     }
 
     #[test]
@@ -142,6 +142,6 @@ mod tests {
         let input: &str = include_str!("../../inputs/test_day5.txt");
 
         let (state, moves) = parse_data(input);
-        assert_eq!(part2(state, moves), "MCD");
+        assert_eq!(part2(state, &moves), "MCD");
     }
 }

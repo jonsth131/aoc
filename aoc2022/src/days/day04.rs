@@ -4,39 +4,36 @@ struct Range(u32, u32);
 
 impl Range {
     pub fn overlap(&self, other: &Range) -> bool {
-        return self.1 >= other.0 && self.0 <= other.1;
+        self.1 >= other.0 && self.0 <= other.1
     }
 
     pub fn full_overlap(&self, other: &Range) -> bool {
-        return self.0 <= other.0 && self.1 >= other.1;
+        self.0 <= other.0 && self.1 >= other.1
     }
 }
 
-fn part1(data: &Vec<(Range, Range)>) -> u32 {
+fn part1(data: &[(Range, Range)]) -> u32 {
     return data
         .iter()
-        .map(|(range1, range2)| {
-            (range1.full_overlap(&range2) || range2.full_overlap(&range1)) as u32
-        })
+        .map(|(range1, range2)| (range1.full_overlap(range2) || range2.full_overlap(range1)) as u32)
         .sum::<u32>();
 }
 
-fn part2(data: &Vec<(Range, Range)>) -> u32 {
+fn part2(data: &[(Range, Range)]) -> u32 {
     return data
         .iter()
-        .map(|(range1, range2)| range1.overlap(&range2) as u32)
+        .map(|(range1, range2)| range1.overlap(range2) as u32)
         .sum::<u32>();
 }
 
 fn parse_data(input: &str) -> Vec<(Range, Range)> {
-    let data = input.split("\n").collect::<Vec<&str>>();
-    return data[..data.len() - 1]
-        .iter()
+    input
+        .lines()
         .map(|row| {
-            let mut row_split = row.split(",");
-            let mut p1_split = row_split.next().unwrap().split("-");
-            let mut p2_split = row_split.next().unwrap().split("-");
-            return (
+            let mut row_split = row.split(',');
+            let mut p1_split = row_split.next().unwrap().split('-');
+            let mut p2_split = row_split.next().unwrap().split('-');
+            (
                 Range(
                     p1_split.next().unwrap().parse::<u32>().unwrap(),
                     p1_split.next().unwrap().parse::<u32>().unwrap(),
@@ -45,14 +42,14 @@ fn parse_data(input: &str) -> Vec<(Range, Range)> {
                     p2_split.next().unwrap().parse::<u32>().unwrap(),
                     p2_split.next().unwrap().parse::<u32>().unwrap(),
                 ),
-            );
+            )
         })
-        .collect();
+        .collect()
 }
 
 pub fn run(input: &str) {
     println!("==== DAY 4 ====");
-    let data = parse_data(&input);
+    let data = parse_data(input);
 
     let p1_timer = Timer::new();
     let p1 = part1(&data);

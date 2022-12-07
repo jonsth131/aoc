@@ -1,24 +1,21 @@
 use took::Timer;
 
-fn part1(data: &Vec<(u8, u8)>) -> u32 {
-    return data
-        .iter()
+fn part1(data: &[(u8, u8)]) -> u32 {
+    data.iter()
         .map(|(opponent, my)| calc_points(*opponent, *my) as u32)
-        .sum::<u32>();
+        .sum::<u32>()
 }
 
-fn part2(data: &Vec<(u8, u8)>) -> u32 {
-    return data
-        .iter()
+fn part2(data: &[(u8, u8)]) -> u32 {
+    data.iter()
         .map(|(opponent, result)| calc_points(*opponent, get_my_value(*opponent, *result)) as u32)
-        .sum::<u32>();
+        .sum::<u32>()
 }
 
 fn parse_data(input: &str) -> Vec<(u8, u8)> {
-    let data = input.split("\n");
     let mut result: Vec<(u8, u8)> = vec![];
-    for line in data {
-        if line == "" {
+    for line in input.lines() {
+        if line.is_empty() {
             continue;
         }
         let mut chars = line.chars();
@@ -37,31 +34,39 @@ fn calc_points(opponent: u8, my: u8) -> u8 {
     if my == get_loss_value(opponent) {
         return my;
     }
-    return my + 3;
+    my + 3
 }
 
 fn get_win_value(value: u8) -> u8 {
     let win = value + 1;
-    return if win == 4 { 1 } else { win };
+    if win == 4 {
+        1
+    } else {
+        win
+    }
 }
 
 fn get_loss_value(value: u8) -> u8 {
     let loss = value - 1;
-    return if loss == 0 { 3 } else { loss };
+    if loss == 0 {
+        3
+    } else {
+        loss
+    }
 }
 
 fn get_my_value(opponent: u8, result: u8) -> u8 {
-    return match result {
+    match result {
         1 => get_loss_value(opponent),
         2 => opponent,
         3 => get_win_value(opponent),
         _ => panic!("Got invalid value!"),
-    };
+    }
 }
 
 pub fn run(input: &str) {
     println!("==== DAY 2 ====");
-    let data = parse_data(&input);
+    let data = parse_data(input);
 
     let p1_timer = Timer::new();
     let p1 = part1(&data);

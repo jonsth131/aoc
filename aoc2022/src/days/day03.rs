@@ -1,25 +1,23 @@
 use took::Timer;
 
-fn part1(data: &Vec<&str>) -> u32 {
-    return data
-        .iter()
+fn part1(data: &[&str]) -> u32 {
+    data.iter()
         .map(|row| get_matching_char(row))
-        .map(|c| calc_priority(c))
-        .sum::<u32>();
+        .map(calc_priority)
+        .sum::<u32>()
 }
 
-fn part2(data: &Vec<&str>) -> u32 {
-    return data
-        .chunks(3)
+fn part2(data: &[&str]) -> u32 {
+    data.chunks(3)
         .map(|chunk| {
             let p1_matches = get_matching_chars(chunk[0], chunk[1]);
-            return get_matching_chars(&p1_matches, chunk[2])
+            get_matching_chars(&p1_matches, chunk[2])
                 .chars()
                 .next()
-                .unwrap() as u8;
+                .unwrap() as u8
         })
-        .map(|c| calc_priority(c))
-        .sum::<u32>();
+        .map(calc_priority)
+        .sum::<u32>()
 }
 
 fn get_matching_char(row: &str) -> u8 {
@@ -42,21 +40,20 @@ fn get_matching_chars(s1: &str, s2: &str) -> String {
 }
 
 fn calc_priority(value: u8) -> u32 {
-    return if value > 96 {
+    if value > 96 {
         (value - 96) as u32
     } else {
         (value - 38) as u32
-    };
+    }
 }
 
 fn parse_data(input: &str) -> Vec<&str> {
-    let data = input.split("\n").collect::<Vec<&str>>();
-    return data[..data.len() - 1].to_vec();
+    input.lines().collect::<Vec<&str>>()
 }
 
 pub fn run(input: &str) {
     println!("==== DAY 3 ====");
-    let data = parse_data(&input);
+    let data = parse_data(input);
 
     let p1_timer = Timer::new();
     let p1 = part1(&data);

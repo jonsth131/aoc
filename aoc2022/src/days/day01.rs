@@ -1,10 +1,10 @@
 use took::Timer;
 
-fn part1(data: &Vec<usize>) -> usize {
+fn part1(data: &[usize]) -> usize {
     data[0]
 }
 
-fn part2(data: &Vec<usize>) -> usize {
+fn part2(data: &[usize]) -> usize {
     data[0..3].iter().sum()
 }
 
@@ -25,7 +25,7 @@ fn parse_data(input: &str) -> Vec<usize> {
 
 pub fn run(input: &str) {
     println!("==== DAY 1 ====");
-    let data = parse_data(&input);
+    let data = parse_data(input);
 
     let p1_timer = Timer::new();
     let p1 = part1(&data);
