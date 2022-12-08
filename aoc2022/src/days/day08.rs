@@ -1,7 +1,5 @@
 use std::collections::HashSet;
 
-use took::Timer;
-
 fn get_visible(grid: &Vec<Vec<u8>>, roots: Vec<(usize, usize)>) -> HashSet<(usize, usize)> {
     let mut found = HashSet::new();
     let col_length = grid[0].len();
@@ -150,25 +148,9 @@ fn parse_data(input: &str) -> Vec<Vec<u8>> {
         .collect::<Vec<Vec<u8>>>()
 }
 
-pub fn run(input: &str) {
-    println!("==== DAY 8 ====");
+pub fn run(input: &str) -> (String, String) {
     let data = parse_data(input);
-
-    let p1_timer = Timer::new();
-    let p1 = part1(&data);
-    println!(
-        "Part 1 answer: {}, time: {:?}",
-        p1,
-        p1_timer.took().into_std()
-    );
-
-    let p2_timer = Timer::new();
-    let p2 = part2(&data);
-    println!(
-        "Part 2 answer: {}, time: {:?}",
-        p2,
-        p2_timer.took().into_std()
-    );
+    (part1(&data).to_string(), part2(&data).to_string())
 }
 
 #[cfg(test)]

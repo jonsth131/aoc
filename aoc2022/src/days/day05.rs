@@ -1,5 +1,3 @@
-use took::Timer;
-
 #[derive(Debug, Clone)]
 struct State {
     state: Vec<Vec<char>>,
@@ -104,25 +102,9 @@ fn parse_data(input: &str) -> (State, Vec<Move>) {
     (state, moves)
 }
 
-pub fn run(input: &str) {
-    println!("==== DAY 5 ====");
+pub fn run(input: &str) -> (String, String) {
     let (state, moves) = parse_data(input);
-
-    let p1_timer = Timer::new();
-    let p1 = part1(state.clone(), &moves);
-    println!(
-        "Part 1 answer: {}, time: {:?}",
-        p1,
-        p1_timer.took().into_std()
-    );
-
-    let p2_timer = Timer::new();
-    let p2 = part2(state, &moves);
-    println!(
-        "Part 2 answer: {}, time: {:?}",
-        p2,
-        p2_timer.took().into_std()
-    );
+    (part1(state.clone(), &moves), part2(state, &moves))
 }
 
 #[cfg(test)]

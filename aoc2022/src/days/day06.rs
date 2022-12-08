@@ -1,5 +1,3 @@
-use took::Timer;
-
 fn get_match(input: &str, len: usize) -> Option<usize> {
     for (i, window) in input
         .chars()
@@ -27,24 +25,8 @@ fn part2(input: &str) -> usize {
     get_match(input, 14).unwrap()
 }
 
-pub fn run(input: &str) {
-    println!("==== DAY 6 ====");
-
-    let p1_timer = Timer::new();
-    let p1 = part1(input);
-    println!(
-        "Part 1 answer: {}, time: {:?}",
-        p1,
-        p1_timer.took().into_std()
-    );
-
-    let p2_timer = Timer::new();
-    let p2 = part2(input);
-    println!(
-        "Part 2 answer: {}, time: {:?}",
-        p2,
-        p2_timer.took().into_std()
-    );
+pub fn run(input: &str) -> (String, String) {
+    (part1(input).to_string(), part2(input).to_string())
 }
 
 #[cfg(test)]

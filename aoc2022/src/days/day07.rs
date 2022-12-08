@@ -1,5 +1,4 @@
 use std::collections::{HashMap, HashSet};
-use took::Timer;
 
 #[derive(Debug)]
 struct FileSystem {
@@ -112,25 +111,9 @@ fn parse_data(input: &str) -> FileSystem {
     fs
 }
 
-pub fn run(input: &str) {
-    println!("==== DAY 7 ====");
+pub fn run(input: &str) -> (String, String) {
     let fs = parse_data(input);
-
-    let p1_timer = Timer::new();
-    let p1 = part1(&fs);
-    println!(
-        "Part 1 answer: {}, time: {:?}",
-        p1,
-        p1_timer.took().into_std()
-    );
-
-    let p2_timer = Timer::new();
-    let p2 = part2(&fs);
-    println!(
-        "Part 2 answer: {}, time: {:?}",
-        p2,
-        p2_timer.took().into_std()
-    );
+    (part1(&fs).to_string(), part2(&fs).to_string())
 }
 
 #[cfg(test)]

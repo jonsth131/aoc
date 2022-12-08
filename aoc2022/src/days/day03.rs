@@ -1,5 +1,3 @@
-use took::Timer;
-
 fn part1(data: &[&str]) -> u32 {
     data.iter()
         .map(|row| get_matching_char(row))
@@ -51,25 +49,9 @@ fn parse_data(input: &str) -> Vec<&str> {
     input.lines().collect::<Vec<&str>>()
 }
 
-pub fn run(input: &str) {
-    println!("==== DAY 3 ====");
+pub fn run(input: &str) -> (String, String) {
     let data = parse_data(input);
-
-    let p1_timer = Timer::new();
-    let p1 = part1(&data);
-    println!(
-        "Part 1 answer: {}, time: {:?}",
-        p1,
-        p1_timer.took().into_std()
-    );
-
-    let p2_timer = Timer::new();
-    let p2 = part2(&data);
-    println!(
-        "Part 2 answer: {}, time: {:?}",
-        p2,
-        p2_timer.took().into_std()
-    );
+    (part1(&data).to_string(), part2(&data).to_string())
 }
 
 #[cfg(test)]
