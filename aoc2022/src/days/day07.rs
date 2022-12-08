@@ -79,33 +79,33 @@ fn parse_data(input: &str) -> FileSystem {
     let mut fs = FileSystem::new();
     let mut cwd = vec![];
     let mut listing: bool = false;
+
     for line in input.lines() {
         if line.starts_with('$') {
             listing = false;
         }
 
         if listing {
-            let list_entry = line.split(' ').collect::<Vec<&str>>();
+            let mut list_entry = line.split(' ');
+            let first = list_entry.next().unwrap();
             let path = cwd.join("/");
-            if list_entry[0] != "dir" {
-                let size = list_entry[0].parse::<usize>().unwrap();
-                fs.add_file(&path, list_entry[1], size)
+            if first != "dir" {
+                let size = first.parse::<usize>().unwrap();
+                fs.add_file(&path, list_entry.next().unwrap(), size)
             }
         }
 
         if line.starts_with("$ cd") {
-            let dir = line.split(' ').collect::<Vec<&str>>()[2];
+            let dir = line.split(' ').last().unwrap();
             if dir == ".." {
                 cwd.pop();
             } else {
                 cwd.push(dir);
             }
 
-            let path = cwd.join("/");
-
-            fs.add_dir(&path)
+            fs.add_dir(&cwd.join("/"));
         } else if line.starts_with("$ ls") {
-            listing = true;
+            listing = true
         }
     }
 
