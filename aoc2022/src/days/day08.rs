@@ -65,67 +65,46 @@ fn get_visible(grid: &Vec<Vec<u8>>, roots: Vec<(usize, usize)>) -> HashSet<(usiz
     found
 }
 
-fn get_scenic_score(grid: &Vec<Vec<u8>>, point: (usize, usize)) -> usize {
-    let (r, c) = point;
+fn get_scenic_score(grid: &Vec<Vec<u8>>, (r, c): (usize, usize)) -> usize {
     let curr = grid[r][c];
-    let col_length = grid[0].len();
-    let row_length = grid.len();
-    let mut seen: Vec<usize> = Vec::new();
 
     // Right
-    let mut trees = 0;
-    for i in (c + 1)..col_length {
+    let mut trees_to_the_right = 0;
+    for i in (c + 1)..grid[0].len() {
+        trees_to_the_right += 1;
         if grid[r][i] >= curr {
-            trees += 1;
             break;
-        } else if grid[r][i] < curr {
-            trees += 1;
         }
     }
-    seen.push(trees);
-    trees = 0;
 
     // Left
+    let mut trees_to_the_left = 0;
     for i in (0..c).rev() {
+        trees_to_the_left += 1;
         if grid[r][i] >= curr {
-            trees += 1;
             break;
-        } else if grid[r][i] < curr {
-            trees += 1;
         }
     }
-    seen.push(trees);
-    trees = 0;
 
     // Up
+    let mut trees_up = 0;
     for i in (0..r).rev() {
+        trees_up += 1;
         if grid[i][c] >= curr {
-            trees += 1;
             break;
-        } else if grid[i][c] < curr {
-            trees += 1;
         }
     }
-    seen.push(trees);
-    trees = 0;
 
     // Down
-    for i in (r + 1)..row_length {
+    let mut trees_down = 0;
+    for i in (r + 1)..grid.len() {
+        trees_down += 1;
         if grid[i][c] >= curr {
-            trees += 1;
             break;
-        } else if grid[i][c] < curr {
-            trees += 1;
         }
     }
-    seen.push(trees);
 
-    let mut result = 1;
-    for val in seen {
-        result *= val;
-    }
-
-    result
+    trees_to_the_right * trees_to_the_left * trees_up * trees_down
 }
 
 fn part1(grid: &Vec<Vec<u8>>) -> usize {
