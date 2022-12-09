@@ -35,43 +35,38 @@ impl State {
     fn move_right(&mut self, count: usize) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.rope[0] = (x + 1, y);
-            self.move_rope();
-            self.tail_visited.insert(self.rope[self.rope.len() - 1]);
+            self.move_rope((x + 1, y));
         }
     }
 
     fn move_left(&mut self, count: usize) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.rope[0] = (x - 1, y);
-            self.move_rope();
-            self.tail_visited.insert(self.rope[self.rope.len() - 1]);
+            self.move_rope((x - 1, y));
         }
     }
 
     fn move_up(&mut self, count: usize) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.rope[0] = (x, y + 1);
-            self.move_rope();
-            self.tail_visited.insert(self.rope[self.rope.len() - 1]);
+            self.move_rope((x, y + 1));
         }
     }
 
     fn move_down(&mut self, count: usize) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.rope[0] = (x, y - 1);
-            self.move_rope();
-            self.tail_visited.insert(self.rope[self.rope.len() - 1]);
+            self.move_rope((x, y - 1));
         }
     }
 
-    fn move_rope(&mut self) {
+    fn move_rope(&mut self, (x, y): (isize, isize)) {
+        self.rope[0] = (x, y);
         for i in 1..self.rope.len() {
             self.move_part(i);
         }
+
+        self.tail_visited.insert(self.rope[self.rope.len() - 1]);
     }
 
     fn move_part(&mut self, part: usize) {
