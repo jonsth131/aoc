@@ -24,39 +24,18 @@ impl State {
 
     fn process_move(&mut self, mv: Move) {
         match mv.direction {
-            'R' => self.move_right(mv.count),
-            'L' => self.move_left(mv.count),
-            'U' => self.move_up(mv.count),
-            'D' => self.move_down(mv.count),
+            'R' => self.perform_move(mv.count, (1, 0)),
+            'L' => self.perform_move(mv.count, (-1, 0)),
+            'U' => self.perform_move(mv.count, (0, 1)),
+            'D' => self.perform_move(mv.count, (0, -1)),
             _ => panic!("Invalid move"),
         }
     }
 
-    fn move_right(&mut self, count: usize) {
+    fn perform_move(&mut self, count: usize, (inc_x, inc_y): (isize, isize)) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.move_rope((x + 1, y));
-        }
-    }
-
-    fn move_left(&mut self, count: usize) {
-        for _ in 0..count {
-            let (x, y) = self.rope[0];
-            self.move_rope((x - 1, y));
-        }
-    }
-
-    fn move_up(&mut self, count: usize) {
-        for _ in 0..count {
-            let (x, y) = self.rope[0];
-            self.move_rope((x, y + 1));
-        }
-    }
-
-    fn move_down(&mut self, count: usize) {
-        for _ in 0..count {
-            let (x, y) = self.rope[0];
-            self.move_rope((x, y - 1));
+            self.move_rope((x + inc_x, y + inc_y));
         }
     }
 
@@ -169,16 +148,6 @@ mod tests {
     }
 
     #[test]
-    fn test_move_right() {
-        let mut state = State::new(2);
-        state.move_right(4);
-
-        assert_eq!(state.rope[0], (4, 0));
-        assert_eq!(state.rope[1], (3, 0));
-        assert_eq!(state.tail_visited.len(), 4);
-    }
-
-    #[test]
     fn test_process_move_right() {
         let mut state = State::new(2);
         let mv = Move {
@@ -189,16 +158,6 @@ mod tests {
 
         assert_eq!(state.rope[0], (4, 0));
         assert_eq!(state.rope[1], (3, 0));
-        assert_eq!(state.tail_visited.len(), 4);
-    }
-
-    #[test]
-    fn test_move_left() {
-        let mut state = State::new(2);
-        state.move_left(4);
-
-        assert_eq!(state.rope[0], (-4, 0));
-        assert_eq!(state.rope[1], (-3, 0));
         assert_eq!(state.tail_visited.len(), 4);
     }
 
@@ -217,16 +176,6 @@ mod tests {
     }
 
     #[test]
-    fn test_move_up() {
-        let mut state = State::new(2);
-        state.move_up(4);
-
-        assert_eq!(state.rope[0], (0, 4));
-        assert_eq!(state.rope[1], (0, 3));
-        assert_eq!(state.tail_visited.len(), 4);
-    }
-
-    #[test]
     fn test_process_move_up() {
         let mut state = State::new(2);
         let mv = Move {
@@ -237,16 +186,6 @@ mod tests {
 
         assert_eq!(state.rope[0], (0, 4));
         assert_eq!(state.rope[1], (0, 3));
-        assert_eq!(state.tail_visited.len(), 4);
-    }
-
-    #[test]
-    fn test_move_down() {
-        let mut state = State::new(2);
-        state.move_down(4);
-
-        assert_eq!(state.rope[0], (0, -4));
-        assert_eq!(state.rope[1], (0, -3));
         assert_eq!(state.tail_visited.len(), 4);
     }
 
