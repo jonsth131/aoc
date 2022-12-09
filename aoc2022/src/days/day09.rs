@@ -24,28 +24,24 @@ impl State {
 
     fn process_move(&mut self, mv: Move) {
         match mv.direction {
-            'R' => self.perform_move(mv.count, (1, 0)),
-            'L' => self.perform_move(mv.count, (-1, 0)),
-            'U' => self.perform_move(mv.count, (0, 1)),
-            'D' => self.perform_move(mv.count, (0, -1)),
+            'R' => self.move_rope(mv.count, (1, 0)),
+            'L' => self.move_rope(mv.count, (-1, 0)),
+            'U' => self.move_rope(mv.count, (0, 1)),
+            'D' => self.move_rope(mv.count, (0, -1)),
             _ => panic!("Invalid move"),
         }
     }
 
-    fn perform_move(&mut self, count: usize, (inc_x, inc_y): (isize, isize)) {
+    fn move_rope(&mut self, count: usize, (inc_x, inc_y): (isize, isize)) {
         for _ in 0..count {
             let (x, y) = self.rope[0];
-            self.move_rope((x + inc_x, y + inc_y));
-        }
-    }
+            self.rope[0] = (x + inc_x, y + inc_y);
+            for i in 1..self.rope.len() {
+                self.move_part(i);
+            }
 
-    fn move_rope(&mut self, (x, y): (isize, isize)) {
-        self.rope[0] = (x, y);
-        for i in 1..self.rope.len() {
-            self.move_part(i);
+            self.tail_visited.insert(self.rope[self.rope.len() - 1]);
         }
-
-        self.tail_visited.insert(self.rope[self.rope.len() - 1]);
     }
 
     fn move_part(&mut self, part: usize) {
