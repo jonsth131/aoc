@@ -28,6 +28,7 @@ fn main() -> io::Result<()> {
         6 => days::day06::run(&input),
         7 => days::day07::run(&input),
         8 => days::day08::run(&input),
+        9 => days::day09::run(&input),
         _ => panic!("Invalid day number"),
     };
     let elapsed = timer.took().into_std();
