@@ -71,17 +71,9 @@ impl State {
     }
 
     fn parts_touching(&self, first: (isize, isize), second: (isize, isize)) -> bool {
-        let (tail_x, tail_y) = second;
-
-        first == second
-            || first == (tail_x - 1, tail_y + 1)
-            || first == (tail_x, tail_y + 1)
-            || first == (tail_x + 1, tail_y + 1)
-            || first == (tail_x - 1, tail_y)
-            || first == (tail_x + 1, tail_y)
-            || first == (tail_x - 1, tail_y - 1)
-            || first == (tail_x, tail_y - 1)
-            || first == (tail_x + 1, tail_y - 1)
+        let (x1, y1) = first;
+        let (x2, y2) = second;
+        (x1 - x2).abs() <= 1 && (y1 - y2).abs() <= 1
     }
 }
 
