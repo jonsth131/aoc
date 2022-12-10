@@ -34,6 +34,7 @@ fn main() -> io::Result<()> {
     };
     let elapsed = timer.took().into_std();
 
+    println!("AoC Day {}", day);
     println!("Part 1: {}", part1);
     println!("Part 2: {}", part2);
     println!("Elapsed time: {:?}", elapsed);

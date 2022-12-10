@@ -38,24 +38,27 @@ fn part1(instructions: &Vec<Instruction>) -> usize {
 
 fn part2(instructions: &Vec<Instruction>) -> String {
     let state = get_state(instructions);
-    let mut rows = Vec::new();
-    rows.push("".to_string());
+    let mut result = String::new();
+    let mut ctr_line = String::new();
+
     for row in state.chunks(40) {
+        ctr_line.clear();
         if row.len() != 40 {
             break;
         }
-        let mut ctr_line = Vec::new();
+
         for (cycle, pos) in row.iter().enumerate() {
             if *pos == cycle as i32 - 1 || *pos == cycle as i32 || *pos == cycle as i32 + 1 {
-                ctr_line.push('#');
+                ctr_line.push_str("#");
             } else {
-                ctr_line.push('.');
+                ctr_line.push_str(".");
             }
         }
-        rows.push(ctr_line.iter().cloned().collect::<String>());
+        result.push_str("\n");
+        result.push_str(&ctr_line);
     }
 
-    rows.join("\n")
+    result
 }
 
 fn parse_data(input: &str) -> Vec<Instruction> {
