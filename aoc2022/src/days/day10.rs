@@ -18,7 +18,6 @@ fn get_state(instructions: &Vec<Instruction>) -> Vec<i32> {
             }
         }
     }
-    result.push(x);
 
     result
 }
@@ -43,9 +42,6 @@ fn part2(instructions: &Vec<Instruction>) -> String {
 
     for row in state.chunks(40) {
         ctr_line.clear();
-        if row.len() != 40 {
-            break;
-        }
 
         for (cycle, pos) in row.iter().enumerate() {
             if *pos == cycle as i32 - 1 || *pos == cycle as i32 || *pos == cycle as i32 + 1 {
