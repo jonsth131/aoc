@@ -49,12 +49,12 @@ fn part2(instructions: &Vec<Instruction>) -> String {
 
         for (cycle, pos) in row.iter().enumerate() {
             if *pos == cycle as i32 - 1 || *pos == cycle as i32 || *pos == cycle as i32 + 1 {
-                ctr_line.push_str("#");
+                ctr_line.push('#');
             } else {
-                ctr_line.push_str(".");
+                ctr_line.push('.');
             }
         }
-        result.push_str("\n");
+        result.push('\n');
         result.push_str(&ctr_line);
     }
 
