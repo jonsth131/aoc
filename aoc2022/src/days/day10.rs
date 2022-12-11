@@ -22,8 +22,7 @@ fn get_state(instructions: &Vec<Instruction>) -> Vec<i32> {
     result
 }
 
-fn part1(instructions: &Vec<Instruction>) -> usize {
-    let state = get_state(instructions);
+fn part1(state: &Vec<i32>) -> usize {
     let mut start = 20;
     let mut result = 0;
 
@@ -35,23 +34,18 @@ fn part1(instructions: &Vec<Instruction>) -> usize {
     result
 }
 
-fn part2(instructions: &Vec<Instruction>) -> String {
-    let state = get_state(instructions);
+fn part2(state: &[i32]) -> String {
     let mut result = String::new();
-    let mut ctr_line = String::new();
 
     for row in state.chunks(40) {
-        ctr_line.clear();
-
+        result.push('\n');
         for (cycle, pos) in row.iter().enumerate() {
             if *pos == cycle as i32 - 1 || *pos == cycle as i32 || *pos == cycle as i32 + 1 {
-                ctr_line.push('#');
+                result.push('#');
             } else {
-                ctr_line.push('.');
+                result.push('.');
             }
         }
-        result.push('\n');
-        result.push_str(&ctr_line);
     }
 
     result
@@ -60,20 +54,20 @@ fn part2(instructions: &Vec<Instruction>) -> String {
 fn parse_data(input: &str) -> Vec<Instruction> {
     input
         .lines()
-        .map(|line| {
-            let r: Vec<&str> = line.split(' ').collect::<Vec<&str>>();
-            match r.as_slice() {
+        .map(
+            |line| match line.split(' ').collect::<Vec<&str>>().as_slice() {
                 ["noop"] => Instruction::Noop(),
                 ["addx", val] => Instruction::Addx(val.parse().unwrap()),
                 _ => panic!("Invalid instruction"),
-            }
-        })
+            },
+        )
         .collect()
 }
 
 pub fn run(input: &str) -> (String, String) {
     let instructions = parse_data(input);
-    (part1(&instructions).to_string(), part2(&instructions))
+    let state = get_state(&instructions);
+    (part1(&state).to_string(), part2(&state))
 }
 
 #[cfg(test)]
@@ -84,8 +78,9 @@ mod tests {
     fn test_part_one() {
         let input: &str = include_str!("../../inputs/test_day10.txt");
         let instructions = parse_data(input);
+        let state = get_state(&instructions);
 
-        assert_eq!(part1(&instructions), 13140);
+        assert_eq!(part1(&state), 13140);
     }
 
     #[test]
@@ -93,7 +88,8 @@ mod tests {
         let input: &str = include_str!("../../inputs/test_day10.txt");
         let expected: String = "\n##..##..##..##..##..##..##..##..##..##..\n###...###...###...###...###...###...###.\n####....####....####....####....####....\n#####.....#####.....#####.....#####.....\n######......######......######......####\n#######.......#######.......#######.....".to_string();
         let instructions = parse_data(input);
+        let state = get_state(&instructions);
 
-        assert_eq!(part2(&instructions), expected);
+        assert_eq!(part2(&state), expected);
     }
 }
