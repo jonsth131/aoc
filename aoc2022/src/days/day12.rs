@@ -111,6 +111,7 @@ fn part2(state: State) -> usize {
     let queue = VecDeque::from(positions);
     find_path(state, queue)
 }
+
 fn parse_data(input: &str) -> State {
     let mut grid = Vec::new();
     let mut start_pos = (0, 0);
@@ -137,6 +138,7 @@ fn parse_data(input: &str) -> State {
         end_position: end_pos,
     }
 }
+
 pub fn run(input: &str) -> (String, String) {
     let state = parse_data(input);
     (part1(state.clone()).to_string(), part2(state).to_string())
@@ -145,12 +147,14 @@ pub fn run(input: &str) -> (String, String) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn test_part_one() {
         let input: &str = include_str!("../../inputs/test_day12.txt");
         let state = parse_data(input);
         assert_eq!(part1(state), 31);
     }
+
     #[test]
     fn test_part_two() {
         let input: &str = include_str!("../../inputs/test_day12.txt");
