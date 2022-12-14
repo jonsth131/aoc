@@ -190,30 +190,4 @@ mod tests {
 
         assert_eq!(actual, expected);
     }
-    /*
-        #[test]
-        fn test_parse_signal_only_values() {
-            let actual = parse_signal("[1,1,3,1,1]".chars().collect::<VecDeque<char>>());
-            let list = vec![
-                Signal::Value(1),
-                Signal::Value(1),
-                Signal::Value(3),
-                Signal::Value(1),
-                Signal::Value(1),
-            ];
-            let expected = Signal::List(list);
-
-            assert_eq!(actual, expected);
-        }
-
-        #[test]
-        fn test_parse_signal_mixed_values() {
-            let actual = parse_signal("[[1],[2,3,4]]".chars().collect::<VecDeque<char>>());
-            let l1 = vec![Signal::Value(1)];
-            let l2 = vec![Signal::Value(2), Signal::Value(3), Signal::Value(4)];
-            let expected = Signal::List(vec![Signal::List(l1), Signal::List(l2)]);
-
-            assert_eq!(actual, expected);
-        }
-    */
 }
