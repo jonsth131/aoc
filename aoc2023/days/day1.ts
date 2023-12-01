@@ -12,12 +12,6 @@ function part2(input: string[]): number {
         .map((line) => line[0] + line[line.length - 1])
         .map(Number)
         .reduce((sum, current) => sum + current, 0);
-    /*
-    .map((line) => line.replace(/\D/g, ""))
-    .map((line) => line[0] + line[line.length - 1])
-    .map(Number)
-    .reduce((sum, current) => sum + current, 0);
-    */
 }
 
 function convert_line(line: string): string {
