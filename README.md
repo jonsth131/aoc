@@ -9,3 +9,6 @@ Solutions written in Python
 
 ## 2022
 Solutions written in Rust
+
+## 2023
+Solutions writtein in TypeScript
