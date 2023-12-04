@@ -27,16 +27,7 @@ function matchScratchCard(card: ScratchCard): ScratchCard {
 }
 
 function calculateWinningAmount(card: ScratchCard): number {
-    const { numberOfMatches } = card;
-    let calc = 0;
-    for (let i = 0; i < numberOfMatches; i++) {
-        if (i === 0) {
-            calc = 1;
-        } else {
-            calc *= 2;
-        }
-    }
-    return calc;
+    return card.numberOfMatches === 0 ? 0 : 1 << card.numberOfMatches - 1;
 }
 
 function calculateCopies(card: ScratchCard, all: ScratchCard[]): void {
