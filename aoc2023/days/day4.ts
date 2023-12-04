@@ -7,8 +7,7 @@ type ScratchCard = {
 };
 
 function parseScratchCard(line: string): ScratchCard {
-    const parts = line.split(": ");
-    const [game, rest] = parts;
+    const [game, rest] = line.split(": ");
     const [winningNumbers, guessedNumbers] = rest.split(" | ");
 
     return {
