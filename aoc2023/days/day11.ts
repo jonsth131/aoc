@@ -29,36 +29,24 @@ function calculateTotalDistance(map: GalaxyMap, age: number): number {
     for (let i = 0; i < map.galaxies.length - 1; i++) {
         for (let j = i + 1; j < map.galaxies.length; j++) {
             const shortestPath = getShortestPath(map.galaxies[i], map.galaxies[j]);
-            const emptyColsInPath = getEmptyColsInPath(map.galaxies[i], map.galaxies[j], map.emptyCols);
-            const emptyRowsInPath = getEmptyRowsInPath(map.galaxies[i], map.galaxies[j], map.emptyRows);
+            const emptyColsInPath = getEmptyInPath(map.galaxies[i].x, map.galaxies[j].x, map.emptyCols);
+            const emptyRowsInPath = getEmptyInPath(map.galaxies[i].y, map.galaxies[j].y, map.emptyRows);
             total += shortestPath + (emptyColsInPath * (age - 1)) + (emptyRowsInPath * (age - 1));
         }
     }
     return total;
 }
 
-function getEmptyRowsInPath(start: Point, end: Point, emptyRows: number[]): number {
-    const result: number[] = [];
-    const minY = Math.min(start.y, end.y);
-    const maxY = Math.max(start.y, end.y);
-    for (let i = minY; i <= maxY; i++) {
-        if (emptyRows.includes(i)) {
-            result.push(i);
+function getEmptyInPath(start: number, end: number, empty: number[]): number {
+    let result = 0;
+    const min = Math.min(start, end);
+    const max = Math.max(start, end);
+    for (let i = min; i <= max; i++) {
+        if (empty.includes(i)) {
+            result++;
         }
     }
-    return result.length;;
-}
-
-function getEmptyColsInPath(start: Point, end: Point, emptyCols: number[]): number {
-    const result: number[] = [];
-    const minX = Math.min(start.x, end.x);
-    const maxX = Math.max(start.x, end.x);
-    for (let i = minX; i <= maxX; i++) {
-        if (emptyCols.includes(i)) {
-            result.push(i);
-        }
-    }
-    return result.length;;
+    return result;
 }
 
 function getShortestPath(start: Point, end: Point): number {
