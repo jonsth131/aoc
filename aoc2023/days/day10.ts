@@ -1,3 +1,5 @@
+import { Point } from "../utils/point";
+
 enum Direction {
     Up,
     Right,
@@ -5,11 +7,6 @@ enum Direction {
     Left,
     None,
 }
-
-type Point = {
-    x: number;
-    y: number;
-};
 
 type Start = {
     point: Point;
