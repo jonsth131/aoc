@@ -28,13 +28,6 @@ function getPossibilities(line: string, springs: number[], cache: Map<string, nu
         return cache.get(key)!;
     }
 
-    if (line.length === 0) {
-        if (springs.length === 0) {
-            return 1;
-        }
-        return 0;
-    }
-
     if (springs.length === 0) {
         if (line.includes("#")) {
             return 0;
