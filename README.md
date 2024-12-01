@@ -11,4 +11,7 @@ Solutions written in Python
 Solutions written in Rust
 
 ## 2023
-Solutions writtein in TypeScript
+Solutions written in TypeScript
+
+## 2024
+Solutions written in Go
