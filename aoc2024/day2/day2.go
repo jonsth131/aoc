@@ -1,9 +1,9 @@
 package day2
 
 import (
-	"math"
 	"strconv"
-	"strings"
+
+	"github.com/jonsth131/aoc/aoc2024/util"
 )
 
 const (
@@ -11,29 +11,6 @@ const (
 	Decreasing = 1
 	Increasing = 2
 )
-
-func parse(input string) [][]int {
-	res := make([][]int, 0)
-	for _, line := range strings.Split(input, "\n") {
-		if line == "" {
-			continue
-		}
-		res = append(res, parseLine(line))
-	}
-	return res
-}
-
-func parseLine(line string) []int {
-	res := make([]int, 0)
-	for _, c := range strings.Split(line, " ") {
-		val, err := strconv.Atoi(c)
-		if err != nil {
-			continue
-		}
-		res = append(res, val)
-	}
-	return res
-}
 
 func part1(input [][]int) string {
 	res := getSafeReports(input, false)
@@ -46,7 +23,7 @@ func part2(input [][]int) string {
 }
 
 func Run(input string) string {
-	arr := parse(input)
+	arr := util.ParseLinesOfInts(input)
 	return part1(arr) + ", " + part2(arr)
 }
 
@@ -83,7 +60,7 @@ func isReportSafe(report []int) bool {
 			return false
 		}
 
-		diff := getDiff(first, second)
+		diff := util.GetDiff(first, second)
 
 		if diff <= 0 || diff > 3 {
 			return false
@@ -108,8 +85,4 @@ func getPairState(first, second int) int {
 	} else {
 		return None
 	}
-}
-
-func getDiff(first, second int) int {
-	return int(int(math.Abs(float64(second - first))))
 }

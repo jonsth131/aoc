@@ -1,10 +1,11 @@
 package day1
 
 import (
-	"math"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/jonsth131/aoc/aoc2024/util"
 )
 
 func parse(input string) ([]int, []int) {
@@ -36,7 +37,7 @@ func part1(arr1 []int, arr2 []int) string {
 	res := 0
 
 	for i := range arr1 {
-		res += int(math.Abs(float64(arr1[i] - arr2[i])))
+		res += util.GetDiff(arr1[i], arr2[i])
 	}
 
 	return strconv.Itoa(res)
