@@ -57,7 +57,7 @@ func part2(arr1 []int, arr2 []int) string {
 	return strconv.Itoa(res)
 }
 
-func Day1(input string) string {
+func Run(input string) string {
 	arr1, arr2 := parse(input)
 	return part1(arr1, arr2) + ", " + part2(arr1, arr2)
 }
