@@ -8,12 +8,13 @@ import (
 
 	"github.com/jonsth131/aoc/aoc2024/day1"
 	"github.com/jonsth131/aoc/aoc2024/day2"
+	"github.com/jonsth131/aoc/aoc2024/day3"
 	"github.com/jonsth131/aoc/aoc2024/util"
 )
 
 type dayFunc func(input string) string
 
-var days = []dayFunc{day1.Run, day2.Run}
+var days = []dayFunc{day1.Run, day2.Run, day3.Run}
 
 func run(day int) {
 	fmt.Printf("===== Day %d =====\n", day+1)
