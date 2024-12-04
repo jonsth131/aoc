@@ -19,9 +19,8 @@ const (
 	DiagDownRight
 )
 
-func part1(input string) string {
+func part1(grid [][]byte) string {
 	target := "XMAS"
-	grid := util.ParseGrid(input)
 
 	res := 0
 	for y, row := range grid {
@@ -37,10 +36,9 @@ func part1(input string) string {
 	return strconv.Itoa(res)
 }
 
-func part2(input string) string {
+func part2(grid [][]byte) string {
 	target := "MAS"
 	targetLen := len(target)
-	grid := util.ParseGrid(input)
 
 	res := 0
 	for y, row := range grid {
@@ -64,68 +62,84 @@ func getAdjacentTarget(grid [][]byte, x, y int, target string, dir Direction) bo
 		return false
 	}
 
-	res := ""
 	switch dir {
 	case Up:
 		if y-targetLen+1 >= 0 {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y-i][x])
+				if grid[y-i][x] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case Down:
 		if y+targetLen <= height {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y+i][x])
+				if grid[y+i][x] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case Left:
 		if x-targetLen+1 >= 0 {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y][x-i])
+				if grid[y][x-i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case Right:
 		if x+targetLen <= width {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y][x+i])
+				if grid[y][x+i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case DiagUpLeft:
 		if x-targetLen+1 >= 0 && y-targetLen+1 >= 0 {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y-i][x-i])
+				if grid[y-i][x-i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case DiagUpRight:
 		if x+targetLen <= width && y-targetLen+1 >= 0 {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y-i][x+i])
+				if grid[y-i][x+i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case DiagDownLeft:
 		if x-targetLen+1 >= 0 && y+targetLen <= height {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y+i][x-i])
+				if grid[y+i][x-i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	case DiagDownRight:
 		if x+targetLen <= width && y+targetLen <= height {
 			for i := 0; i < targetLen; i++ {
-				res += string(grid[y+i][x+i])
+				if grid[y+i][x+i] != target[i] {
+					return false
+				}
 			}
-			return res == target
+			return true
 		}
 	}
 
 	return false
 }
 func Run(input string) string {
-	return part1(input) + ", " + part2(input)
+	grid := util.ParseGrid(input)
+	return part1(grid) + ", " + part2(grid)
 }
