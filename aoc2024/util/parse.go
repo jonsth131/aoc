@@ -27,3 +27,22 @@ func ParseLineOfInts(line string) []int {
 	}
 	return res
 }
+
+func ParseGrid(input string) [][]byte {
+	res := make([][]byte, 0)
+	for _, line := range strings.Split(input, "\n") {
+		if line == "" {
+			continue
+		}
+		res = append(res, ParseLineOfBytes(line))
+	}
+	return res
+}
+
+func ParseLineOfBytes(line string) []byte {
+	res := make([]byte, 0)
+	for _, c := range line {
+		res = append(res, byte(c))
+	}
+	return res
+}
