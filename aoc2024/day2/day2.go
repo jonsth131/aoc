@@ -23,7 +23,7 @@ func part2(input [][]int) string {
 }
 
 func Run(input string) string {
-	arr := util.ParseLinesOfInts(input)
+	arr := util.ParseLinesOfInts(input, " ")
 	return part1(arr) + ", " + part2(arr)
 }
 

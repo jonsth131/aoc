@@ -5,20 +5,20 @@ import (
 	"strings"
 )
 
-func ParseLinesOfInts(input string) [][]int {
+func ParseLinesOfInts(input string, separator string) [][]int {
 	res := make([][]int, 0)
 	for _, line := range strings.Split(input, "\n") {
 		if line == "" {
 			continue
 		}
-		res = append(res, ParseLineOfInts(line))
+		res = append(res, ParseLineOfInts(line, separator))
 	}
 	return res
 }
 
-func ParseLineOfInts(line string) []int {
+func ParseLineOfInts(line string, separator string) []int {
 	res := make([]int, 0)
-	for _, c := range strings.Split(line, " ") {
+	for _, c := range strings.Split(line, separator) {
 		val, err := strconv.Atoi(c)
 		if err != nil {
 			continue

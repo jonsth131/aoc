@@ -9,7 +9,7 @@ import (
 func TestGetSafeReportsShouldFail(t *testing.T) {
 	expected := 0
 	data := "68 70 71 69 72 74 71"
-	arr := util.ParseLineOfInts(data)
+	arr := util.ParseLineOfInts(data, " ")
 
 	result := getSafeReports([][]int{arr}, true)
 
@@ -21,7 +21,7 @@ func TestGetSafeReportsShouldFail(t *testing.T) {
 func TestGetSafeReportsShouldPass(t *testing.T) {
 	expected := 1
 	data := "68 70 71 69 72 74 75"
-	arr := util.ParseLineOfInts(data)
+	arr := util.ParseLineOfInts(data, " ")
 
 	result := getSafeReports([][]int{arr}, true)
 
@@ -33,7 +33,7 @@ func TestGetSafeReportsShouldPass(t *testing.T) {
 func TestPart1(t *testing.T) {
 	expected := "2"
 	data := util.ReadTestInput(2)
-	arr := util.ParseLinesOfInts(data)
+	arr := util.ParseLinesOfInts(data, " ")
 
 	result := part1(arr)
 
@@ -45,7 +45,7 @@ func TestPart1(t *testing.T) {
 func TestPart2(t *testing.T) {
 	expected := "4"
 	data := util.ReadTestInput(2)
-	arr := util.ParseLinesOfInts(data)
+	arr := util.ParseLinesOfInts(data, " ")
 
 	result := part2(arr)
 

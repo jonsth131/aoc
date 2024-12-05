@@ -139,6 +139,7 @@ func getAdjacentTarget(grid [][]byte, x, y int, target string, dir Direction) bo
 
 	return false
 }
+
 func Run(input string) string {
 	grid := util.ParseGrid(input)
 	return part1(grid) + ", " + part2(grid)
