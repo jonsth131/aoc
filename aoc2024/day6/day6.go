@@ -21,6 +21,26 @@ type Line struct {
 }
 
 func part1(grid util.Grid) string {
+	visited := visit(grid)
+	return fmt.Sprintf("%d", len(visited))
+}
+
+func part2(grid util.Grid) string {
+	visited := visit(grid)
+	res := 0
+	for p := range visited {
+		if grid[p.Y][p.X] == '.' {
+			newGrid := grid.Copy()
+			newGrid[p.Y][p.X] = '#'
+			if isLoop(newGrid) {
+				res++
+			}
+		}
+	}
+	return fmt.Sprintf("%d", res)
+}
+
+func visit(grid util.Grid) map[util.Point]bool {
 	visited := make(map[util.Point]bool)
 	position := grid.FindPoint('^')
 	visited[*position] = true
@@ -33,23 +53,7 @@ func part1(grid util.Grid) string {
 			dir = getNextDirection(dir)
 		}
 	}
-	return fmt.Sprintf("%d", len(visited))
-}
-
-func part2(grid util.Grid) string {
-	res := 0
-	for y := range grid {
-		for x := range grid[y] {
-			if grid[y][x] == '.' {
-				newGrid := grid.Copy()
-				newGrid[y][x] = '#'
-				if isLoop(newGrid) {
-					res++
-				}
-			}
-		}
-	}
-	return fmt.Sprintf("%d", res)
+	return visited
 }
 
 func isLoop(grid util.Grid) bool {
