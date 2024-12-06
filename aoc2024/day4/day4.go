@@ -19,7 +19,7 @@ const (
 	DiagDownRight
 )
 
-func part1(grid [][]byte) string {
+func part1(grid util.Grid) string {
 	target := "XMAS"
 
 	res := 0
@@ -36,7 +36,7 @@ func part1(grid [][]byte) string {
 	return strconv.Itoa(res)
 }
 
-func part2(grid [][]byte) string {
+func part2(grid util.Grid) string {
 	target := "MAS"
 	targetLen := len(target)
 
@@ -53,7 +53,7 @@ func part2(grid [][]byte) string {
 	return strconv.Itoa(res)
 }
 
-func getAdjacentTarget(grid [][]byte, x, y int, target string, dir Direction) bool {
+func getAdjacentTarget(grid util.Grid, x, y int, target string, dir Direction) bool {
 	targetLen := len(target)
 	height := len(grid)
 	width := len(grid[0])

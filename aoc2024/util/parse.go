@@ -28,8 +28,8 @@ func ParseLineOfInts(line string, separator string) []int {
 	return res
 }
 
-func ParseGrid(input string) [][]byte {
-	res := make([][]byte, 0)
+func ParseGrid(input string) Grid {
+	res := make(Grid, 0)
 	for _, line := range strings.Split(input, "\n") {
 		if line == "" {
 			continue
