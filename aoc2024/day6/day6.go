@@ -30,11 +30,11 @@ func part2(grid util.Grid) string {
 	res := 0
 	for p := range visited {
 		if grid[p.Y][p.X] == '.' {
-			newGrid := grid.Copy()
-			newGrid[p.Y][p.X] = '#'
-			if isLoop(newGrid) {
+			grid[p.Y][p.X] = '#'
+			if isLoop(grid) {
 				res++
 			}
+			grid[p.Y][p.X] = '.'
 		}
 	}
 	return fmt.Sprintf("%d", res)

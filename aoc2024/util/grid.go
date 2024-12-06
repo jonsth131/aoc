@@ -17,12 +17,3 @@ func (grid Grid) FindPoint(target byte) *Point {
 	}
 	return nil
 }
-
-func (grid Grid) Copy() Grid {
-	newGrid := make(Grid, len(grid))
-	for y, row := range grid {
-		newGrid[y] = make(GridRow, len(row))
-		copy(newGrid[y], row)
-	}
-	return newGrid
-}
