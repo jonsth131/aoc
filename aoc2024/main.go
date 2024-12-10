@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/jonsth131/aoc/aoc2024/day1"
+	"github.com/jonsth131/aoc/aoc2024/day10"
 	"github.com/jonsth131/aoc/aoc2024/day2"
 	"github.com/jonsth131/aoc/aoc2024/day3"
 	"github.com/jonsth131/aoc/aoc2024/day4"
@@ -20,7 +21,7 @@ import (
 
 type dayFunc func(input string) string
 
-var days = []dayFunc{day1.Run, day2.Run, day3.Run, day4.Run, day5.Run, day6.Run, day7.Run, day8.Run, day9.Run}
+var days = []dayFunc{day1.Run, day2.Run, day3.Run, day4.Run, day5.Run, day6.Run, day7.Run, day8.Run, day9.Run, day10.Run}
 
 func run(day int) {
 	fmt.Printf("===== Day %d =====\n", day+1)
