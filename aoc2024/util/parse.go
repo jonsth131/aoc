@@ -17,6 +17,7 @@ func ParseLinesOfInts(input string, separator string) [][]int {
 }
 
 func ParseLineOfInts(line string, separator string) []int {
+	line = strings.TrimSuffix(line, "\n")
 	res := make([]int, 0)
 	for _, c := range strings.Split(line, separator) {
 		val, err := strconv.Atoi(c)
