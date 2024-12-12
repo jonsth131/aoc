@@ -14,6 +14,10 @@ const (
 	Down
 	Left
 	Right
+	DiagonalUpLeft
+	DiagonalUpRight
+	DiagonalDownLeft
+	DiagonalDownRight
 )
 
 func (grid Grid) FindPoint(target byte) *Point {
@@ -48,6 +52,10 @@ func (grid Grid) InBounds(p Point) bool {
 	return p.X >= 0 && p.X < width && p.Y >= 0 && p.Y < height
 }
 
+func (grid Grid) Get(p Point) byte {
+	return grid[p.Y][p.X]
+}
+
 func (p Point) Add(d Direction) Point {
 	switch d {
 	case Up:
@@ -58,6 +66,14 @@ func (p Point) Add(d Direction) Point {
 		return Point{p.X - 1, p.Y}
 	case Right:
 		return Point{p.X + 1, p.Y}
+	case DiagonalUpLeft:
+		return Point{p.X - 1, p.Y - 1}
+	case DiagonalUpRight:
+		return Point{p.X + 1, p.Y - 1}
+	case DiagonalDownLeft:
+		return Point{p.X - 1, p.Y + 1}
+	case DiagonalDownRight:
+		return Point{p.X + 1, p.Y + 1}
 	}
 	panic("Invalid direction")
 }
