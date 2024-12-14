@@ -30,8 +30,15 @@ func part2(robots []robot) string {
 
 	positions := getPositions(robots, ticks, height, width)
 	img := generateImage(positions, height, width)
-
 	filename := fmt.Sprintf("output/image-%05d.png", ticks)
+	saveImage(img, filename)
+
+	printPositions(positions, height, width)
+
+	return fmt.Sprintf("Image saved to %s", filename)
+}
+
+func saveImage(img image.Gray, filename string) {
 	f, err := os.Create(filename)
 	if err != nil {
 		panic("Error creating file")
@@ -45,10 +52,6 @@ func part2(robots []robot) string {
 	if err := f.Close(); err != nil {
 		panic("Error closing file")
 	}
-
-	printPositions(positions, height, width)
-
-	return fmt.Sprintf("Image saved to %s", filename)
 }
 
 func generateImage(positions map[util.Point]int, height, width int) image.Gray {
