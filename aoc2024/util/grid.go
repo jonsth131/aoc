@@ -1,5 +1,7 @@
 package util
 
+import "fmt"
+
 type Grid []GridRow
 type GridRow []byte
 type Point struct {
@@ -54,6 +56,15 @@ func (grid Grid) InBounds(p Point) bool {
 
 func (grid Grid) Get(p Point) byte {
 	return grid[p.Y][p.X]
+}
+
+func (grid Grid) Print() {
+	for _, row := range grid {
+		for _, c := range row {
+			fmt.Print(string(c))
+		}
+		fmt.Println()
+	}
 }
 
 func (p Point) Add(d Direction) Point {
