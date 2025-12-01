@@ -6,3 +6,7 @@ obj/
 __pycache__/
 inputs/
 target/
+.vscode/
+out/
+aoc
+tests
