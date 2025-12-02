@@ -5,12 +5,12 @@ unit day02;
 interface
 
 uses
-  Runner, SysUtils, Classes, Utils, Parsers;
+  Runner, SysUtils, Classes, Utils, Parsers, Math;
 
 type
   TRange = record
-    First: QWord;
-    Last: QWord;
+    First: UInt64;
+    Last: UInt64;
   end;
   TRangeList = array of TRange;
 
@@ -25,6 +25,38 @@ type
   end;
 
 implementation
+
+function SumRepeatedNumbersInRange(const A, B: UInt64): UInt64;
+var
+  HalfLen, StartP, EndP, Multiplier: UInt64;
+  P, N: UInt64;
+  MaxDigits: integer;
+begin
+  Result := 0;
+  MaxDigits := Length(UIntToStr(B));
+
+  for HalfLen := 1 to MaxDigits div 2 do
+  begin
+    StartP := 1;
+    if HalfLen > 1 then
+      for P := 2 to HalfLen do
+        StartP := StartP * 10;
+
+    EndP := (StartP * 10) - 1;
+
+    for P := StartP to EndP do
+    begin
+      Multiplier := Round(IntPower(10, HalfLen));
+      N := (P * Multiplier) + P;
+
+      if N > B then
+        Break;
+
+      if (N >= A) and (N <= B) then
+        Inc(Result, N);
+    end;
+  end;
+end;
 
 procedure TDay02.EnsureParsed;
 var
@@ -42,8 +74,8 @@ begin
       try
         if Parts.Count = 2 then
         begin
-          FList[i].First := StrToQWordDef(Trim(Parts[0]), 0);
-          FList[i].Last := StrToQWordDef(Trim(Parts[1]), 0);
+          FList[i].First := StrToUInt64Def(Trim(Parts[0]), 0);
+          FList[i].Last := StrToUInt64Def(Trim(Parts[1]), 0);
         end;
       finally
         Parts.Free;
@@ -56,38 +88,15 @@ end;
 
 function TDay02.Part1: string;
 var
-  Res, j: QWord;
+  Res: UInt64;
   i: integer;
-  StrVal: string;
-  Middle: integer;
-  LeftPart, RightPart: string;
 begin
   EnsureParsed;
 
   Res := 0;
 
   for i := 0 to Length(FList) - 1 do
-  begin
-    if FList[i].First > FList[i].Last then
-      Continue;
-    for j := FList[i].First to FList[i].Last do
-    begin
-      StrVal := IntToStr(j);
-      if (StrVal[1] = '0') then
-        Continue;
-      if (Length(StrVal) > 0) and (Length(StrVal) mod 2 = 0) then
-      begin
-        Middle := Length(StrVal) div 2;
-        if (Middle > 0) and (Middle + 1 <= Length(StrVal)) then
-        begin
-          LeftPart := Copy(StrVal, 1, Middle);
-          RightPart := Copy(StrVal, Middle + 1, Middle);
-          if LeftPart = RightPart then
-            Inc(Res, j);
-        end;
-      end;
-    end;
-  end;
+    Inc(Res, SumRepeatedNumbersInRange(FList[i].First, FList[i].Last));
 
   Result := IntToStr(Res);
 end;
