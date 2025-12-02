@@ -21,6 +21,9 @@ function ParseTwoIntColumns(const input: string): TLists;
 /// Parses input lines to a string list.
 function ParseLinesToStringList(const input: string): TStringList;
 
+/// Parses input lines to a string list with custom separator.
+function ParseLinesToStringList(const input: string; const separator: Char): TStringList;
+
 implementation
 
 function ParseTwoIntColumns(const input: string): TLists;
@@ -66,6 +69,14 @@ function ParseLinesToStringList(const input: string): TStringList;
 begin
   Result := TStringList.Create;
   Result.Text := Trim(input);
+end;
+
+function ParseLinesToStringList(const input: string; const separator: Char): TStringList;
+begin
+  Result := TStringList.Create;
+  Result.Delimiter := separator;
+  Result.StrictDelimiter := True;
+  Result.DelimitedText := Trim(input);
 end;
 
 end.

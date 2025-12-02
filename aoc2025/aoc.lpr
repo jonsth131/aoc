@@ -6,7 +6,8 @@ uses
   SysUtils,
   Args,
   Runner,
-  day01;
+  day01,
+  day02;
 
 var
   Opt: TOptions;

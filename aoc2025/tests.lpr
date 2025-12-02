@@ -8,7 +8,8 @@ uses
   testutils,
   consoletestrunner,
   uUtils_tests,
-  day01_tests;
+  day01_tests,
+  day02_tests;
 
 begin
   // Run all registered tests using a console runner
