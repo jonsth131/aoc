@@ -9,6 +9,7 @@ uses
 
 type
   TIntArray = array of integer;
+  TArrayOfArrayOfChar = array of array of Char;
 
   TLists = record
     List1: TIntArray;
@@ -23,6 +24,9 @@ function ParseLinesToStringList(const input: string): TStringList;
 
 /// Parses input lines to a string list with custom separator.
 function ParseLinesToStringList(const input: string; const separator: Char): TStringList;
+
+/// Parses input lines to char matrix.
+function ParseLinesToCharMatrix(const input: string): TArrayOfArrayOfChar;
 
 implementation
 
@@ -77,6 +81,31 @@ begin
   Result.Delimiter := separator;
   Result.StrictDelimiter := True;
   Result.DelimitedText := Trim(input);
+end;
+
+function ParseLinesToCharMatrix(const input: string): TArrayOfArrayOfChar;
+var
+  SL: TStringList;
+  i, j: integer;
+  Line: string;
+begin
+  SL := TStringList.Create;
+  try
+    SL.Text := Trim(input);
+    SetLength(Result, SL.Count);
+
+    for i := 0 to SL.Count - 1 do
+    begin
+      Line := SL[i];
+      SetLength(Result[i], Length(Line));
+      for j := 1 to Length(Line) do
+      begin
+        Result[i][j - 1] := Line[j];
+      end;
+    end;
+  finally
+    SL.Free;
+  end;
 end;
 
 end.
