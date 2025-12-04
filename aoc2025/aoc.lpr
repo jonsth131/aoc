@@ -7,7 +7,8 @@ uses
   Args,
   Runner,
   day01,
-  day02;
+  day02,
+  day03;
 
 var
   Opt: TOptions;
