@@ -12,7 +12,8 @@ uses
   day02_tests,
   day03_tests,
   day04_tests,
-  day05_tests;
+  day05_tests,
+  day06_tests;
 
 begin
   // Run all registered tests using a console runner

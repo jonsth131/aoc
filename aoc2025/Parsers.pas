@@ -32,6 +32,8 @@ function ParseLinesToStringList(const input: string): TStringList;
 /// Parses input lines to a string list with custom separator.
 function ParseLinesToStringList(const input: string; const separator: char): TStringList;
 
+function ParseLinesToStringListNoTrim(const input: string): TStringList;
+
 /// Parses input lines to char matrix.
 function ParseLinesToCharMatrix(const input: string): TArrayOfArrayOfChar;
 
@@ -94,6 +96,12 @@ begin
   Result.Delimiter := separator;
   Result.StrictDelimiter := True;
   Result.DelimitedText := Trim(input);
+end;
+
+function ParseLinesToStringListNoTrim(const input: string): TStringList;
+begin
+  Result := TStringList.Create;
+  Result.Text := input;
 end;
 
 function ParseLinesToCharMatrix(const input: string): TArrayOfArrayOfChar;

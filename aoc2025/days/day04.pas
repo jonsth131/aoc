@@ -108,7 +108,6 @@ end;
 
 function ProcessAllPaperRolls(CharMatrix: TArrayOfArrayOfChar): integer;
 var
-  i: integer;
   Clone: TArrayOfArrayOfChar;
   PassResult: integer;
 begin
@@ -126,8 +125,6 @@ end;
 function TDay04.Part1: string;
 var
   Res: integer;
-  i, j: integer;
-  Adjacent: integer;
   Clone: TArrayOfArrayOfChar;
 begin
   EnsureParsed;
@@ -141,8 +138,6 @@ end;
 function TDay04.Part2: string;
 var
   Res: integer;
-  i, j: integer;
-  Adjacent: integer;
 begin
   EnsureParsed;
 
